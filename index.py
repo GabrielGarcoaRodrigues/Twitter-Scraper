@@ -11,7 +11,7 @@ from excel import Excel
 
 def main():
     if not conf["token"]:
-        log.warning("Erro ao acessa o Token, atualize o arquivo './files/conf.json'")
+        log.warning("Error accessing the Token, update the file './files/conf.json'")
         return
 
     driver = open_driver(conf["headless"], conf["userAgent"])
@@ -19,46 +19,49 @@ def main():
     set_token(driver, conf["token"])
     driver.get("https://twitter.com/")
 
-    log.warning("Iniciando...")
+    log.warning("Getting started...")
     
-    nome_arquivo_url = 'Links.txt'
-    nome_arquivo_numero = 'Numero.txt'
+    # url_file_name = 'Links.txt'
+    url_file_name = 'link.txt'
+
+    number_file_name = 'Number_tweets.txt'
     data = []
 
-    url = read_urls_from_file(nome_arquivo_url)
-    with open(nome_arquivo_numero, 'r') as file:
-        numero_tweets = int(file.read())
+    url = read_urls_from_file(url_file_name)
+    with open(number_file_name, 'r') as file:
+        number_tweets = int(file.read())
 
     for link in url:
-        log.warning(f"Buscando tweets de {link}...")
-        data.append(profile_search(driver, link, numero_tweets))
+        log.warning(f"Searching tweets from {link}...")
+        data.append(profile_search(driver, link, number_tweets))
 
-    log.warning("Salvando...")
+    log.warning("Saving...")
     Excel(data)
     json.dump(data, open("./files/temp.json", "w"))
-    log.warning("Pronto!")
+    log.warning("Finished!")
 
 
-def read_urls_from_file(nome_arquivo_url):
-    with open(nome_arquivo_url, 'r') as file:
+def read_urls_from_file(url_file_name):
+    with open(url_file_name, 'r') as file:
         urls = [line.strip() for line in file.readlines()]
     return urls
 
-def profile_search(driver: webdriver.Chrome, url : str, numero_tweets : int):
+def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
     time.sleep(2.5)
     driver.get(url)
     Ad = []
     results = []
 
-    log.warning("Buscando...")
+    log.warning("Searching...")
 
-    while len(results) < numero_tweets:
+    while len(results) < number_tweets:
         tweet = Tweet(driver, Ad)
         
         data = {}
 
         data["URL"] = tweet.get_url()
         data["Date"] = tweet.get_date()
+        data["Time"] = tweet.get_time()
         data["Text"] = tweet.get_text()
         data["Lang"] = tweet.get_lang()
         data["Likes"] = tweet.get_num_likes()

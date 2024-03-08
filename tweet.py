@@ -21,6 +21,7 @@ class Tweet:
                     
                     self.tweet_url, self.retweet = "",""
                     self.tweet_date = ""
+                    self.tweet_time = ""
                     self.tweet_text = ""
                     self.tweet_lang = ""
                     self.tweet_num_likes = ""
@@ -32,6 +33,7 @@ class Tweet:
                     self.__remove_pinned()
                     self.tweet_url, self.retweet = self.__get_tweet_url()
                     self.tweet_date = self.__get_tweet_date()
+                    self.tweet_time = self.__get_tweet_time()
                     self.tweet_text = self.__get_tweet_text()
                     self.tweet_lang = self.__get_tweet_lang()
                     self.tweet_num_likes = self.__get_tweet_num_likes()
@@ -65,6 +67,9 @@ class Tweet:
             return self.tweet_date
         else:
             return "N/A"
+
+    def get_time(self) -> str:
+        return self.tweet_time
 
     def get_text(self) -> str:
         return self.tweet_text
@@ -132,12 +137,24 @@ class Tweet:
     def __get_tweet_date(self) -> str:
         try:
             date = self.tweet.find_element(
-                By.CSS_SELECTOR, "time").get_attribute("datetime")[:10]
+                By.CSS_SELECTOR, "time").get_attribute("datetime")[0:10]
             date = datetime.strptime(date, '%Y-%m-%d')
+
         except NoSuchElementException:
             raise TypeError
 
-        return date.strftime('%d/%m/%Y')
+        return date.strftime('%d/%m/%Y') 
+
+
+    def __get_tweet_time(self) -> str:
+        try:
+            time = self.tweet.find_element(
+                By.CSS_SELECTOR, "time").get_attribute("datetime")[11:19]
+            time = datetime.strptime(time, '%H:%M:%S')
+        except NoSuchElementException:
+            raise TypeError
+
+        return time.strftime('%H:%M:%S')
 
 
     def __get_tweet_text(self) -> str:
