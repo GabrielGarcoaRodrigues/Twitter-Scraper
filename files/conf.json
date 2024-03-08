@@ -1,0 +1,14 @@
+{
+    "headless": true,
+    "output_form": [
+        "URL",
+        "Date",
+        "Text",
+        "Lang",
+        "Likes",
+        "Retweets",
+        "Replies"
+    ],
+    "token": "81d022a89e9beb627b3d01c940bbe89e6a6e2bf9",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"
+}
