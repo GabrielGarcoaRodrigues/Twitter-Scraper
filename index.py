@@ -21,8 +21,8 @@ def main():
 
     log.warning("Getting started...")
     
-    # url_file_name = 'Links.txt'
-    url_file_name = 'link.txt'
+    url_file_name = 'Links.txt'
+    # url_file_name = 'link.txt'
 
     number_file_name = 'Number_tweets.txt'
     data = []
@@ -47,7 +47,7 @@ def read_urls_from_file(url_file_name):
     return urls
 
 def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
-    time.sleep(2.5)
+    time.sleep(2)
     driver.get(url)
     Ad = []
     results = []

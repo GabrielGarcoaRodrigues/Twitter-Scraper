@@ -7,13 +7,14 @@ from time import sleep
 import traceback
 import threading
 import time
-import requests
-from bs4 import BeautifulSoup
+
+
+
 class Tweet:
     def __init__(self, driver: webdriver.Chrome, Ad: list):
         self.driver = driver
         self.Ad = Ad
-        time.sleep(2.5)
+        time.sleep(2)
         while True:
             try:
                 self.tweet = self.__get_first_tweet()
@@ -45,9 +46,8 @@ class Tweet:
                     self.tweet_num_retweet = self.__get_tweet_num_retweet()
                     self.tweet_num_reply = self.__get_tweet_num_reply()  
 
-
                     self.__delete_tweet() 
-  
+               
                 break
 
             except TypeError:
@@ -163,6 +163,7 @@ class Tweet:
                 By.CSS_SELECTOR, "time").get_attribute("datetime")[11:19]
             tweet_time  = datetime.strptime(time_str, '%H:%M:%S')
             tweet_time -= timedelta(hours=3)
+        
         except NoSuchElementException:
             raise TypeError
 
@@ -211,9 +212,6 @@ class Tweet:
     
     def __get_tweet_num_reply(self):
         return self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='reply']").get_attribute("innerText")
-
-
-
             
     def __delete_tweet(self):
         self.driver.execute_script("""
@@ -221,3 +219,6 @@ class Tweet:
             element.parentNode.removeChild(element);
             """, self.tweet)
 
+   
+
+   
