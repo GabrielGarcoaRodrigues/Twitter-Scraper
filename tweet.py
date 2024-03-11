@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.remote.webelement import WebElement
-from datetime import datetime
+from datetime import datetime, timedelta
 from time import sleep
 import traceback
 import threading
@@ -148,13 +148,14 @@ class Tweet:
 
     def __get_tweet_time(self) -> str:
         try:
-            time = self.tweet.find_element(
+            time_str  = self.tweet.find_element(
                 By.CSS_SELECTOR, "time").get_attribute("datetime")[11:19]
-            time = datetime.strptime(time, '%H:%M:%S')
+            tweet_time  = datetime.strptime(time_str, '%H:%M:%S')
+            tweet_time -= timedelta(hours=3)
         except NoSuchElementException:
             raise TypeError
 
-        return time.strftime('%H:%M:%S')
+        return tweet_time.strftime('%H:%M:%S')
 
 
     def __get_tweet_text(self) -> str:
