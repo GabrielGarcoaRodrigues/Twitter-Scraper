@@ -7,7 +7,8 @@ from time import sleep
 import traceback
 import threading
 import time
-
+import requests
+from bs4 import BeautifulSoup
 class Tweet:
     def __init__(self, driver: webdriver.Chrome, Ad: list):
         self.driver = driver
@@ -20,6 +21,8 @@ class Tweet:
                 if self.tweet == None:
                     
                     self.tweet_url, self.retweet = "",""
+                    self.tweet_user_name = ""
+                    self.tweet_user = ""
                     self.tweet_date = ""
                     self.tweet_time = ""
                     self.tweet_text = ""
@@ -32,6 +35,8 @@ class Tweet:
                 else:
                     self.__remove_pinned()
                     self.tweet_url, self.retweet = self.__get_tweet_url()
+                    self.tweet_user_name = self.__get_tweet_user_name()
+                    self.tweet_user = self.__get_tweet_user()
                     self.tweet_date = self.__get_tweet_date()
                     self.tweet_time = self.__get_tweet_time()
                     self.tweet_text = self.__get_tweet_text()
@@ -39,6 +44,7 @@ class Tweet:
                     self.tweet_num_likes = self.__get_tweet_num_likes()
                     self.tweet_num_retweet = self.__get_tweet_num_retweet()
                     self.tweet_num_reply = self.__get_tweet_num_reply()  
+
 
                     self.__delete_tweet() 
   
@@ -58,9 +64,14 @@ class Tweet:
             
             break
 
-
     def get_url(self) -> str:
         return self.tweet_url
+    
+    def get_user_name(self) -> str:
+        return self.tweet_user_name
+
+    def get_user(self) -> str:
+        return self.tweet_user
     
     def get_date(self) -> str:
         if self.tweet_date is not None:
@@ -157,6 +168,22 @@ class Tweet:
 
         return tweet_time.strftime('%H:%M:%S')
 
+    def __get_tweet_user_name(self) -> str:
+        try:
+            element = self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='User-Name']").get_attribute("innerText")
+            element = element.split("@")
+            return element[0]
+        except:
+            return ""
+
+    def __get_tweet_user(self) -> str:
+        try:
+            element = self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='User-Name']").get_attribute("innerText")
+            element = element.split("@")
+            element = element[1].split("·")
+            return '@'+element[0]
+        except:
+            return ""
 
     def __get_tweet_text(self) -> str:
         try:
@@ -185,8 +212,12 @@ class Tweet:
     def __get_tweet_num_reply(self):
         return self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='reply']").get_attribute("innerText")
 
+
+
+            
     def __delete_tweet(self):
         self.driver.execute_script("""
             var element = arguments[0];
             element.parentNode.removeChild(element);
             """, self.tweet)
+

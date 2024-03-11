@@ -5,13 +5,15 @@ def Excel(data: list):
     wb = openpyxl.Workbook()
     ws = wb.active
 
-    headers = ['URL', 'Date', 'Time', 'Text', 'Lang', 'Likes', 'Retweets', 'Replies']
+    headers = ['URL', 'User Name', 'User @', 'Date', 'Time', 'Text', 'Lang', 'Likes', 'Retweets', 'Replies']
     ws.append(headers)
 
     for tweets in data:
         for tweet in tweets:
             row = [
                 tweet['URL'],
+                tweet['User Name'],
+                tweet['User @'],
                 tweet['Date'],
                 tweet['Time'],
                 tweet['Text'],

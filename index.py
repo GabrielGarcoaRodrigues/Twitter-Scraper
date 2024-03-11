@@ -60,6 +60,8 @@ def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
         data = {}
 
         data["URL"] = tweet.get_url()
+        data["User Name"] = tweet.get_user_name()
+        data["User @"] = tweet.get_user()
         data["Date"] = tweet.get_date()
         data["Time"] = tweet.get_time()
         data["Text"] = tweet.get_text()
