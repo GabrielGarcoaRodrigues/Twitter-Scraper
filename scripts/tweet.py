@@ -12,7 +12,7 @@ class Tweet:
     def __init__(self, driver: webdriver.Chrome, Ad: list):
         self.driver = driver
         self.Ad = Ad
-        time.sleep(1.5)
+        time.sleep(2)
         while True:
             try:
                 self.tweet = self.__get_first_tweet()

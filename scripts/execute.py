@@ -6,6 +6,6 @@ def install_packages(packages):
 
 
 if __name__ == "__main__":
-    packages_to_install = ['selenium', 'termcolor', 'xlwt', 'chromedriver_autoinstaller']
+    packages_to_install = ['selenium', 'termcolor', 'xlwt', 'chromedriver_autoinstaller', 'openpyxl', 'logger']
     install_packages(packages_to_install)
   
