@@ -8,8 +8,8 @@ import time
 from tweet import Tweet
 from excel import Excel
 
-
 def main():
+    # Verifica o token de acesso
     if not conf["token"]:
         log.warning("Error accessing the Token, update the file './files/conf.json'")
         return
@@ -18,43 +18,44 @@ def main():
     driver.get("https://twitter.com/")
     set_token(driver, conf["token"])
     driver.get("https://twitter.com/")
-
     log.warning("Getting started...")
     
+    # Links para cada busca do twitter
     url_file_name = 'Links.txt'
-    # url_file_name = 'link.txt'
-
+    # Numero de tweets que deseja buscar em cada URL
     number_file_name = 'Number_tweets.txt'
     data = []
-
+    # Lê os links de um arquivo
     url = read_urls_from_file(url_file_name)
     with open(number_file_name, 'r') as file:
         number_tweets = int(file.read())
-
+    # Procura os tweets em cada link
     for link in url:
         log.warning(f"Searching tweets from {link}...")
         data.append(profile_search(driver, link, number_tweets))
 
     log.warning("Saving...")
+    # Salva os tweets em um arquivo excel e json
     Excel(data)
     json.dump(data, open("./files/temp.json", "w"))
     log.warning("Finished!")
 
-
+# Função para ler os links de um arquivo
 def read_urls_from_file(url_file_name):
     with open(url_file_name, 'r') as file:
         urls = [line.strip() for line in file.readlines()]
     return urls
 
+# Função para buscar os os dados dos tweets
 def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
     time.sleep(2)
     driver.get(url)
     Ad = []
     results = []
-
     log.warning("Searching...")
 
     while len(results) < number_tweets:
+        # Função para buscar os tweets
         tweet = Tweet(driver, Ad)
         
         data = {}
@@ -78,7 +79,6 @@ def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
                 
     return results
 
-                
 def open_driver(headless: bool, agent: str) -> webdriver.Chrome:
     options = Options()
     options.add_argument('--log-level=3')
@@ -106,7 +106,6 @@ def load_conf() -> dict:
     with open("./files/conf.json", "r") as file:
         return json.loads(file.read())
 
-
 if __name__  == "__main__":
     log = Logger()
     try:
@@ -116,5 +115,3 @@ if __name__  == "__main__":
         input("\n\tPress any key to exit...")
     else:
         main()
-
-

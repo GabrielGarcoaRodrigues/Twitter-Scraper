@@ -4,7 +4,7 @@ import openpyxl
 def Excel(data: list):
     wb = openpyxl.Workbook()
     ws = wb.active
-
+    # Cria o cabeçalho
     headers = ['URL', 'User Name', 'User @', 'Date', 'Time', 'Text', 'Lang', 'Likes', 'Retweets', 'Replies']
     ws.append(headers)
 
