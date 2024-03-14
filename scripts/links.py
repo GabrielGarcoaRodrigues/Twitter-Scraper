@@ -18,7 +18,6 @@ while end_date != datetime.date(2024, 3, 12):
     formatted_end_date = end_date.strftime("%Y-%m-%d")
     # Crie a URL para o dia atual
     url = f"https://twitter.com/search?f=live&q=Vacina%20lang%3Apt%20until%3A{formatted_end_date}%20since%3A{formatted_date}&src=typed_query"
-    # url = f"https://twitter.com/search?q=Lollapalooza%20OR%20Lolapalooza%20lang%3Apt%20until%3A{formatted_end_date}%20since%3A{formatted_date}&src=typed_query&f=live"
     # Adicione a URL à lista de URLs
     urls.append(url)
     # Avance para o próximo dia
