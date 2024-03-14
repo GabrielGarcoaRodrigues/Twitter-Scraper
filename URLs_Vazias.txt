@@ -1,0 +1,4 @@
+https://twitter.com/search?f=live&q=briga%20min_replies%3A213%20min_faves%3A123%20min_retweets%3A12323%20lang%3Apt%20until%3A2021-09-17%20since%3A2021-09-16&src=typed_query
+https://twitter.com/search?f=live&q=briga%20min_replies%3A0%20min_faves%3A123%20min_retweets%3A12323%20lang%3Apt%20until%3A2021-09-17%20since%3A2021-09-16&src=typed_query
+https://twitter.com/search?f=live&q=briga%20min_replies%3A100%20min_faves%3A123%20min_retweets%3A12323%20lang%3Apt%20until%3A2021-09-17%20since%3A2021-09-16&src=typed_query
+https://twitter.com/search?f=live&q=briga%20min_replies%3A213%20min_faves%3A123%20min_retweets%3A12323%20lang%3Apt%20until%3A2021-09-17%20since%3A2021-09-16&src=typed_query

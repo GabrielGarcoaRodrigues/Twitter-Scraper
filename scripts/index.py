@@ -25,20 +25,32 @@ def main():
     # Numero de tweets que deseja buscar em cada URL
     number_file_name = 'Numero_tweets.txt'
     data = []
+    aux = []
+    listaErros = []
+    
     # Lê os links de um arquivo
     url = read_urls_from_file(url_file_name)
     with open(number_file_name, 'r') as file:
         number_tweets = int(file.read())
+
     # Procura os tweets em cada link
     for link in url:
-        log.warning(f"Searching tweets from {link}...")
-        data.append(profile_search(driver, link, number_tweets))
+        log.warning(f"\nSearching tweets from {link}...")
+        aux = profile_search(driver, link, number_tweets)
+        if aux == []:
+            log.error(f"URL Vazia ou Erro {link}")
+            listaErros.append(link)
+        else:
+            data.append(aux)
 
     log.warning("Saving...")
-    # Salva os tweets em um arquivo excel e json
+
+    # Salva os tweets em um arquivo excel, json e txt para as URLs que deram erro
     Excel(data)
     json.dump(data, open("./files/temp.json", "w"))
-    log.warning("Finished!")
+    open("URLs_Vazias.txt", "w").write("\n".join(listaErros))
+    
+    log.success("Finished!")
 
 # Função para ler os links de um arquivo
 def read_urls_from_file(url_file_name):
@@ -48,14 +60,13 @@ def read_urls_from_file(url_file_name):
 
 # Função para buscar os os dados dos tweets
 def profile_search(driver: webdriver.Chrome, url : str, number_tweets : int):
-    time.sleep(2)
     driver.get(url)
     Ad = []
     results = []
-    log.warning("Searching...")
 
     while len(results) < number_tweets:
         # Função para buscar os tweets
+        time.sleep(2)
         tweet = Tweet(driver, Ad)
         
         data = {}
@@ -115,3 +126,5 @@ if __name__  == "__main__":
         input("\n\tPress any key to exit...")
     else:
         main()
+
+#18-08-2023

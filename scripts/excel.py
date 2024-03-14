@@ -1,5 +1,6 @@
 from xlwt import Workbook
 import openpyxl
+from datetime import date
 
 def Excel(data: list):
     wb = openpyxl.Workbook()
@@ -23,5 +24,7 @@ def Excel(data: list):
                 tweet['Replies']
             ]
             ws.append(row)
-
-    wb.save('Excel.xls')
+            
+    data = date.today()
+    dataFormatada = data.strftime('%d-%m-%Y')
+    wb.save(f'search-results_{dataFormatada}.xlsx')
