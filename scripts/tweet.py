@@ -72,10 +72,7 @@ class Tweet:
         return self.tweet_user
     
     def get_date(self) -> str:
-        if self.tweet_date is not None:
-            return self.tweet_date
-        else:
-            return "N/A"
+        return self.tweet_date
 
     def get_time(self) -> str:
         return self.tweet_time
@@ -175,7 +172,7 @@ class Tweet:
             element = self.tweet.find_element(By.CSS_SELECTOR, "div[data-testid='User-Name']").get_attribute("innerText")
             element = element.split("@") # Separa o Nome e o User
             element = element[1].split("·") # Separa o User e a data
-            return '@'+element[0] # Retorna o user
+            return '@'+element[0] # Retorna o User
         except:
             return ""
 

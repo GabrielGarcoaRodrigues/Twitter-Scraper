@@ -9,7 +9,7 @@ from tweet import Tweet
 from excel import Excel
 
 def main():
-    # Verifica o token de acesso
+    # Verifica o token de acesso files -> conf.json -> token
     if not conf["token"]:
         log.warning("Error accessing the Token, update the file './files/conf.json'")
         return
@@ -126,5 +126,3 @@ if __name__  == "__main__":
         input("\n\tPress any key to exit...")
     else:
         main()
-
-#18-08-2023
