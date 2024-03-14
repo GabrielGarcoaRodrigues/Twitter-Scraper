@@ -27,4 +27,4 @@ def Excel(data: list):
             
     data = date.today()
     dataFormatada = data.strftime('%d-%m-%Y')
-    wb.save(f'search-results_{dataFormatada}.xlsx')
+    wb.save(f'SearchResults_{dataFormatada}.xlsx')
