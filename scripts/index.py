@@ -21,17 +21,36 @@ def main():
     log.warning("Getting started...")
     
     # Links para cada busca do twitter
-    url_file_name = 'URLs.txt'
+    url_file_name = 'files/URLs.txt'
+
     # Numero de tweets que deseja buscar em cada URL
-    number_file_name = 'Numero_tweets.txt'
+    # Abre o arquivo
+    with open('Criar_URL.txt', 'r') as arquivo:
+        # Lê todas as linhas do arquivo
+        linhas = arquivo.readlines()
+
+    # Cria um dicionário para armazenar as variáveis
+    variaveis = {}
+
+    # Itera sobre cada linha do arquivo
+    for linha in linhas:
+        # Separa o nome da variável e seu valor
+        nome, valor = linha.strip().split(' = ')
+        # Armazena a variável no dicionário
+        variaveis[nome] = valor
+    
+    # number_file_name = 'Numero_tweets.txt'
+    number_tweets = int(variaveis['Tweets'])
+    
+    
     data = []
     aux = []
     listaErros = []
     
     # Lê os links de um arquivo
     url = read_urls_from_file(url_file_name)
-    with open(number_file_name, 'r') as file:
-        number_tweets = int(file.read())
+    # with open(number_file_name, 'r') as file:
+    #     number_tweets = int(file.read())
 
     # Procura os tweets em cada link
     for link in url:
