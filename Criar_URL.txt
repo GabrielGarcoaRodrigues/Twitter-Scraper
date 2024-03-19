@@ -1,4 +1,4 @@
-Busca = Rock
-Tweets = 20
+Busca = Futebol
+Tweets = 10
 Inicio = 12-03-2023
 Final = 12-03-2024

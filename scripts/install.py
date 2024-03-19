@@ -23,3 +23,5 @@ for biblioteca in bibliotecas_necessarias:
     check_and_install_package(biblioteca)
 
 # Agora você pode usar as bibliotecas normalmente em seu código!
+
+

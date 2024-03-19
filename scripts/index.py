@@ -7,6 +7,7 @@ chromedriver_autoinstaller.install()
 import time
 from tweet import Tweet
 from excel import Excel
+from links import Atualiza_Parametros
 
 def main():
     # Verifica o token de acesso files -> conf.json -> token
@@ -20,6 +21,9 @@ def main():
     driver.get("https://twitter.com/")
     log.warning("Getting started...")
     
+    # Le o arquivo Criar_URL.txt e atualiza os parametros URLs.txt
+    Atualiza_Parametros()
+
     # Links para cada busca do twitter
     url_file_name = 'files/URLs.txt'
 
@@ -39,7 +43,6 @@ def main():
         # Armazena a variável no dicionário
         variaveis[nome] = valor
     
-    # number_file_name = 'Numero_tweets.txt'
     number_tweets = int(variaveis['Tweets'])
     
     
@@ -49,8 +52,6 @@ def main():
     
     # Lê os links de um arquivo
     url = read_urls_from_file(url_file_name)
-    # with open(number_file_name, 'r') as file:
-    #     number_tweets = int(file.read())
 
     # Procura os tweets em cada link
     for link in url:
